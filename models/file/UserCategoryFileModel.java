@@ -2,22 +2,22 @@ package models.file;
 
 import java.sql.Connection;
 
-import models.db.CategoryDBModel;
+import models.db.UserCategoryDBModel;
 
-public class CategoryFileModel implements FileModelInterface{
-    private int categoryID;
+public class UserCategoryFileModel implements FileModelInterface{
+    private int usercategoryID;
     private int maxBooks;
     private int loanPeriod;
 
     public void parseFromLine(String inputLine) {
         String[] splitted = inputLine.split("\t");
-        this.categoryID = Integer.parseInt(splitted[0]);
+        this.usercategoryID = Integer.parseInt(splitted[0]);
         this.maxBooks = Integer.parseInt(splitted[1]);
         this.loanPeriod = Integer.parseInt(splitted[2]);
     }
 
     public void saveToDatabase(Connection conn) {
-        CategoryDBModel category = new CategoryDBModel(categoryID, maxBooks, loanPeriod);
-        category.insertToDatabase(conn);
+        UserCategoryDBModel usercategory = new UserCategoryDBModel(usercategoryID, maxBooks, loanPeriod);
+        usercategory.insertToDatabase(conn);
     }
 }

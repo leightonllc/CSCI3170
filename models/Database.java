@@ -11,7 +11,7 @@ public class Database {
     final String dbUsername = "Group27";
     final String dbPassword = "password";
 
-    final String[] tableNames = {"category", "libuser", "book", "copy", "borrow", "authorship"};
+    final String[] tableNames = {"usercategory", "libuser", "book", "copy", "borrow", "authorship"};
 
     private Connection conn = null;
 
@@ -24,7 +24,7 @@ public class Database {
 
     public void createAllTables() throws SQLException {
         PreparedStatement[] stmts = {
-            conn.prepareStatement("CREATE TABLE category (cid INTEGER NOT NULL, max INTEGER NOT NULL, period INTEGER NOT NULL, PRIMARY KEY (cid))"),
+            conn.prepareStatement("CREATE TABLE usercategory (cid INTEGER NOT NULL, max INTEGER NOT NULL, period INTEGER NOT NULL, PRIMARY KEY (cid))"),
             conn.prepareStatement("CREATE TABLE libuser (libuid CHAR(10) NOT NULL, name VARCHAR(25) NOT NULL, address VARCHAR(100) NOT NULL, cid INTEGER NOT NULL, PRIMARY KEY (libuid))"),
             conn.prepareStatement("CREATE TABLE book (callnum CHAR(8) NOT NULL, title VARCHAR(30) NOT NULL, publish DATE NOT NULL, PRIMARY KEY (callnum))"),
             conn.prepareStatement("CREATE TABLE copy (callnum CHAR(8) NOT NULL, copynum INTEGER NOT NULL, PRIMARY KEY (callnum, copynum))"),
@@ -45,7 +45,7 @@ public class Database {
     }
 
     public void loadDataFromFiles(String folderPath) {
-        readToModelAndSaveToDB(folderPath + "/category.txt", CategoryFileModel.class);
+        readToModelAndSaveToDB(folderPath + "/category.txt", UserCategoryFileModel.class);
         readToModelAndSaveToDB(folderPath + "/user.txt", UserFileModel.class);
         readToModelAndSaveToDB(folderPath + "/book.txt", BookFileModel.class);
         readToModelAndSaveToDB(folderPath + "/check_out.txt", CheckoutFileModel.class);

@@ -7,11 +7,11 @@ import java.util.Calendar;
 import models.file.*;
 
 public class Database {
-    final String dbAddr = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db27";
-    final String dbUsername = "Group27";
-    final String dbPassword = "password";
+    final String dbAddr = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db64";
+    final String dbUsername = "Group64";
+    final String dbPassword = "CSCI3170";
 
-    final String[] tableNames = {"usercategory", "libuser", "book", "copy", "borrow", "authorship"};
+    final String[] tableNames = {"usercategory", "libuser", "book_category", "book", "copy", "borrow", "authorship"};
 
     private Connection conn = null;
 
@@ -20,13 +20,14 @@ public class Database {
         this.conn = DriverManager.getConnection(dbAddr, dbUsername, dbPassword);
     }
 
-    // ====== ADMIN OPERATIONS =======
+    // ====== Administrator OPERATIONS =======
 
     public void createAllTables() throws SQLException {
         PreparedStatement[] stmts = {
-            conn.prepareStatement("CREATE TABLE usercategory (cid INTEGER NOT NULL, max INTEGER NOT NULL, period INTEGER NOT NULL, PRIMARY KEY (cid))"),
-            conn.prepareStatement("CREATE TABLE libuser (libuid CHAR(10) NOT NULL, name VARCHAR(25) NOT NULL, address VARCHAR(100) NOT NULL, cid INTEGER NOT NULL, PRIMARY KEY (libuid))"),
-            conn.prepareStatement("CREATE TABLE book (callnum CHAR(8) NOT NULL, title VARCHAR(30) NOT NULL, publish DATE NOT NULL, PRIMARY KEY (callnum))"),
+            conn.prepareStatement("CREATE TABLE usercategory (ucid INTEGER NOT NULL, max INTEGER NOT NULL, period INTEGER NOT NULL, PRIMARY KEY (ucid))"),
+            conn.prepareStatement("CREATE TABLE libuser (libuid CHAR(10) NOT NULL, name VARCHAR(25) NOT NULL, age INTEGER NOT NULL, address VARCHAR(100) NOT NULL, ucid INTEGER NOT NULL, PRIMARY KEY (libuid))"),
+            conn.prepareStatement("CREARE TABLE book_category (bcid INTEGER NOT NULL, bcname VARCHAR(30) NOT NULL, PRIMARY KEY (bcid))"),
+            conn.prepareStatement("CREATE TABLE book (callnum CHAR(8) NOT NULL, title VARCHAR(30) NOT NULL, publish DATE NOT NULL, rating FLOAT, tborrowed INTEGER NOT NULL, bcid INTEGER NOT NULL, PRIMARY KEY (callnum))"),
             conn.prepareStatement("CREATE TABLE copy (callnum CHAR(8) NOT NULL, copynum INTEGER NOT NULL, PRIMARY KEY (callnum, copynum))"),
             conn.prepareStatement("CREATE TABLE borrow (libuid CHAR(10) NOT NULL, callnum CHAR(8) NOT NULL, copynum INTEGER NOT NULL, checkout DATE NOT NULL, ret DATE, PRIMARY KEY (libuid, callnum, copynum, checkout))"),
             conn.prepareStatement("CREATE TABLE authorship (aname VARCHAR(25) NOT NULL, callnum CHAR(8) NOT NULL, PRIMARY KEY (aname, callnum))")
@@ -45,9 +46,10 @@ public class Database {
     }
 
     public void loadDataFromFiles(String folderPath) {
-        readToModelAndSaveToDB(folderPath + "/category.txt", UserCategoryFileModel.class);
+        readToModelAndSaveToDB(folderPath + "/user_category.txt", UserCategoryFileModel.class);
         readToModelAndSaveToDB(folderPath + "/user.txt", UserFileModel.class);
         readToModelAndSaveToDB(folderPath + "/book.txt", BookFileModel.class);
+        readToModelAndSaveToDB(folderPath + "/book_category.txt", BookCategoryFileModel.class);
         readToModelAndSaveToDB(folderPath + "/check_out.txt", CheckoutFileModel.class);
     }
 
@@ -305,7 +307,6 @@ public class Database {
         }
     }
 
-    // ====== Library Director Operations ======
     public void listAllUnreturnedBooks(Calendar startDate, Calendar endDate) {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT libuid, callnum, copynum, checkout FROM borrow WHERE checkout >= ? AND checkout <= ? AND ret IS NULL ORDER BY checkout DESC");

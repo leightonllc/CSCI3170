@@ -11,13 +11,21 @@ public class Database {
     final String dbUsername = "Group64";
     final String dbPassword = "CSCI3170";
 
-    final String[] tableNames = {"usercategory", "libuser", "book_category", "book", "copy", "borrow", "authorship"};
+    final String[] tableNames = {"usercategory", "libuser", "bookcategory", "book", "copy", "borrow", "authorship"};
 
     private Connection conn = null;
 
     public void connect() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
-        this.conn = DriverManager.getConnection(dbAddr, dbUsername, dbPassword);
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            this.conn = DriverManager.getConnection(dbAddr, dbUsername, dbPassword);
+        }catch (ClassNotFoundException e){
+            System.out.println("[Error]: Java MySQL DB Driver not found!");
+            System.exit(0);
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        
     }
 
     // ====== Administrator OPERATIONS =======
@@ -26,7 +34,7 @@ public class Database {
         PreparedStatement[] stmts = {
             conn.prepareStatement("CREATE TABLE usercategory (ucid INTEGER NOT NULL, max INTEGER NOT NULL, period INTEGER NOT NULL, PRIMARY KEY (ucid))"),
             conn.prepareStatement("CREATE TABLE libuser (libuid CHAR(10) NOT NULL, name VARCHAR(25) NOT NULL, age INTEGER NOT NULL, address VARCHAR(100) NOT NULL, ucid INTEGER NOT NULL, PRIMARY KEY (libuid))"),
-            conn.prepareStatement("CREARE TABLE book_category (bcid INTEGER NOT NULL, bcname VARCHAR(30) NOT NULL, PRIMARY KEY (bcid))"),
+            conn.prepareStatement("CREATE TABLE bookcategory (bcid INTEGER NOT NULL, bcname VARCHAR(30) NOT NULL, PRIMARY KEY (bcid))"),
             conn.prepareStatement("CREATE TABLE book (callnum CHAR(8) NOT NULL, title VARCHAR(30) NOT NULL, publish DATE NOT NULL, rating FLOAT, tborrowed INTEGER NOT NULL, bcid INTEGER NOT NULL, PRIMARY KEY (callnum))"),
             conn.prepareStatement("CREATE TABLE copy (callnum CHAR(8) NOT NULL, copynum INTEGER NOT NULL, PRIMARY KEY (callnum, copynum))"),
             conn.prepareStatement("CREATE TABLE borrow (libuid CHAR(10) NOT NULL, callnum CHAR(8) NOT NULL, copynum INTEGER NOT NULL, checkout DATE NOT NULL, ret DATE, PRIMARY KEY (libuid, callnum, copynum, checkout))"),

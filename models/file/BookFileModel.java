@@ -12,7 +12,7 @@ public class BookFileModel implements FileModelInterface {
     private String title;
     private String[] authors;
     private Calendar dateOfPublication;
-    private float bookrating;
+    private Float bookrating;
     private int timesborrowed;
     private int bookcatid;
 
@@ -23,7 +23,17 @@ public class BookFileModel implements FileModelInterface {
         this.title = splitted[2];
         this.authors = splitted[3].split(",");
         this.dateOfPublication = DateConv.strToCal(splitted[4]);
-        this.bookrating = Float.parseFloat(splitted[5]);
+
+        try {
+            if (!"null".equals(splitted[5])) {
+                this.bookrating = Float.parseFloat(splitted[5]);
+            } else {
+                this.bookrating = null;
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
         this.timesborrowed = Integer.parseInt(splitted[6]);
         this.bookcatid = Integer.parseInt(splitted[7]);
     }

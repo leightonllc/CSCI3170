@@ -7,11 +7,11 @@ public class BookDBModel {
     private String callnum;
     private String title;
     private Calendar publish;
-    private float rating;
+    private Float rating;
     private int tborrowed;
     private int bcid;
 
-    public BookDBModel(String callnum, String title, Calendar publish, float rating, int tborrowed, int bcid) {
+    public BookDBModel(String callnum, String title, Calendar publish, Float rating, int tborrowed, int bcid) {
         this.callnum = callnum;
         this.title = title;
         this.publish = publish;

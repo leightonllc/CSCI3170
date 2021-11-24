@@ -51,6 +51,7 @@ public class AdminCLI implements CLIInterface {
             } else {
                 System.out.println("[Error] Failed to create tables.\n");
             }
+            System.out.println(e);
         }
     }
 

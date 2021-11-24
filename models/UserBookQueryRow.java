@@ -28,7 +28,7 @@ public class UserBookQueryRow {
 
         //book category
 
-        PreparedStatement bookcatStmt = conn.prepareStatement("SELECT bcname FROM bookcategory WHERE becid = (SELECT bcid FROM book WHERE callnum = ?))");
+        PreparedStatement bookcatStmt = conn.prepareStatement("SELECT bcname FROM bookcategory WHERE bcid = (SELECT bcid FROM book WHERE callnum = ?)");
         bookcatStmt.setString(1, callnum);
         ResultSet bookcatResSet = bookcatStmt.executeQuery();
         if (!bookcatResSet.next()) return false;
@@ -46,7 +46,7 @@ public class UserBookQueryRow {
         PreparedStatement ratingStmt = conn.prepareStatement("SELECT rating FROM book WHERE callnum = ?");
         ratingStmt.setString(1, callnum);
         ResultSet ratingResSet = ratingStmt.executeQuery();
-        if (!bookResSet.next()) return false;
+        if (!ratingResSet.next()) return false;
         rating = ratingResSet.getFloat(1);
 
         // available copies.

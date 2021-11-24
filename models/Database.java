@@ -111,6 +111,7 @@ public class Database {
             row.printRow();
         } catch (SQLException e) {
             System.out.println("[Error] Failed to perform query.");
+            e.printStackTrace();
         }
     }
 
@@ -312,7 +313,7 @@ public class Database {
             stmt.execute();
             System.out.println("Book returning performed successfully!!!\n");
 
-            //Update the rating.
+            //Update the rating and tborrowed.
             stmt = conn.prepareStatement("SELECT tborrowed FROM book WHERE callnum = ?");
             stmt.setString(1, callnum);
             ResultSet tborrowedRS = stmt.executeQuery();
@@ -324,17 +325,21 @@ public class Database {
             ratingRS.next();
             Float newrating = ratingRS.getFloat(1);
             newrating = (newrating * tborrowed + rating) / (tborrowed + 1);
-            stmt = conn.prepareStatement("UPDATE book SET rating = ? WHERE callnum ?");
+            stmt = conn.prepareStatement("UPDATE book SET rating = ? WHERE callnum = ?");
             stmt.setFloat(1, newrating);
             stmt.setString(2, callnum);
             stmt.execute();
-
+            stmt = conn.prepareStatement("UPDATE book SET tborrowed = ? WHERE callnum = ?");
+            stmt.setInt(1, tborrowed + 1);
+            stmt.setString(2, callnum);
+            stmt.execute();
                 
 
 
 
         } catch (SQLException e) {
             System.out.println("[Error] Failed to return the book.\n");
+            System.out.println(e);
         }
     }
 

@@ -26,7 +26,11 @@ public class BookDBModel {
             stmt.setString(1, callnum);
             stmt.setString(2, title);
             stmt.setDate(3, new Date(publish.getTimeInMillis()));
-            stmt.setFloat(4, rating);
+            if (rating == null){
+                stmt.setNull(4, Types.FLOAT);
+            } else {
+                stmt.setFloat(4, rating);
+            }
             stmt.setInt(5, tborrowed);
             stmt.setInt(6, bcid);
             stmt.execute();

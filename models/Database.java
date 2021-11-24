@@ -74,6 +74,7 @@ public class Database {
             }
         } catch (Exception e) {
             System.out.println("[Error] " + e);
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +96,7 @@ public class Database {
     // ====== LIBRARY USER OPERATIONS ======
 
     private void printUserSearchResultTitle() {
-        System.out.println("|Call Num|Title|Author|Available No. of Copy|");
+        System.out.println("|Call Num|Title|Book Category|Author|Rating|Available No. of Copy|");
     }
 
     public void printSearchByCallnum(String callnum) {
@@ -273,7 +274,7 @@ public class Database {
         }
     }
 
-    public void returnBook(String userID, String callnum, int copynum) {
+    public void returnBook(String userID, String callnum, int copynum, Float rating) {
         try {
             // Check that this book exists.
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM copy WHERE callnum = ? AND copynum = ?");
@@ -310,6 +311,28 @@ public class Database {
             stmt.setInt(4, copynum);
             stmt.execute();
             System.out.println("Book returning performed successfully!!!\n");
+
+            //Update the rating.
+            stmt = conn.prepareStatement("SELECT tborrowed FROM book WHERE callnum = ?");
+            stmt.setString(1, callnum);
+            ResultSet tborrowedRS = stmt.executeQuery();
+            tborrowedRS.next();
+            int tborrowed = tborrowedRS.getInt(1);
+            stmt = conn.prepareStatement("SELECT rating FROM book WHERE callnum = ?");
+            stmt.setString(1, callnum);
+            ResultSet ratingRS = stmt.executeQuery();
+            ratingRS.next();
+            Float newrating = ratingRS.getFloat(1);
+            newrating = (newrating * tborrowed + rating) / (tborrowed + 1);
+            stmt = conn.prepareStatement("UPDATE book SET rating = ? WHERE callnum ?");
+            stmt.setFloat(1, newrating);
+            stmt.setString(2, callnum);
+            stmt.execute();
+
+                
+
+
+
         } catch (SQLException e) {
             System.out.println("[Error] Failed to return the book.\n");
         }

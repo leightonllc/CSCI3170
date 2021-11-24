@@ -54,15 +54,18 @@ public class LibrarianCLI implements CLIInterface {
     private void optBookReturning() {
         String userID, callnum;
         int copynum;
+        Float rating;
         System.out.printf("Enter The User ID: ");
         userID = sc.next();
         System.out.printf("Enter The Call Number: ");
         callnum = sc.next();
         System.out.printf("Enter The Copy Number: ");
         copynum = sc.nextInt();
+        System.out.printf("Enter Your Rating of the Book: ");
+        rating = sc.nextFloat();
         System.out.println();
 
-        db.returnBook(userID, callnum, copynum);
+        db.returnBook(userID, callnum, copynum, rating);
     }
 
     private void optListAllUnreturned() {

@@ -6,7 +6,9 @@ import java.util.*;
 public class UserBookQueryRow {
     private String callnum;
     private String title;
+    private String bookcat;
     private ArrayList<String> authors;
+    private Float rating;
     private int availableCopies;
 
     public UserBookQueryRow() {
@@ -24,6 +26,14 @@ public class UserBookQueryRow {
         if (!bookResSet.next()) return false;
         title = bookResSet.getString(1);
 
+        //book category
+
+        PreparedStatement bookcatStmt = conn.prepareStatement("SELECT bcname FROM bookcategory WHERE becid = (SELECT bcid FROM book WHERE callnum = ?))");
+        bookcatStmt.setString(1, callnum);
+        ResultSet bookcatResSet = bookcatStmt.executeQuery();
+        if (!bookcatResSet.next()) return false;
+        bookcat = bookcatResSet.getString(1);
+
         // author.
         PreparedStatement authorStmt = conn.prepareStatement("SELECT aname FROM authorship WHERE callnum = ?");
         authorStmt.setString(1, callnum);
@@ -31,6 +41,13 @@ public class UserBookQueryRow {
         while (authorResSet.next()) {
             authors.add(authorResSet.getString(1));
         }
+
+        // rating.
+        PreparedStatement ratingStmt = conn.prepareStatement("SELECT rating FROM book WHERE callnum = ?");
+        ratingStmt.setString(1, callnum);
+        ResultSet ratingResSet = ratingStmt.executeQuery();
+        if (!bookResSet.next()) return false;
+        rating = ratingResSet.getFloat(1);
 
         // available copies.
         PreparedStatement copyStmt = conn.prepareStatement("SELECT COUNT(*) FROM copy WHERE (callnum, copynum) NOT IN "
@@ -45,13 +62,13 @@ public class UserBookQueryRow {
     }
 
     public void printRow() {
-        System.out.printf("|" + callnum + "|" + title + "|");
+        System.out.printf("|" + callnum + "|" + title + "|" + bookcat + "|");
         boolean first = true;
         for (String a : authors) {
             System.out.printf(first ? a : (", " + a));
             first = false;
         }
-        System.out.println("|" + availableCopies + "|");
+        System.out.println("|" + rating + "|" + availableCopies + "|");
     }
 
 }

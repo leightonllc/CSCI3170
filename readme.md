@@ -4,23 +4,14 @@ This is a library inquiry system implemented in Java, using JDBC for MySQL conne
 
 ## Compilation
 Run:
-
-```
-make
-```
+javac Main.java
 
 ## Running the program
 Run:
-
-```
-make run
-```
+java -cp .:mysql-connector-java-5.1.47.jar Main
 
 (CUHK CSE VPN connection is required to run the project.)
 
 ## Cleaning up the compiled files
 Run:
-
-```
-make clean
-```
+find . -name "*.class" -type f

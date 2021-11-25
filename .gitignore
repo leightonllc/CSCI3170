@@ -1,1 +1,4 @@
 *.class
+.vscode/
+.gitattributes
+.gitignore

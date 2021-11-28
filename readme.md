@@ -8,10 +8,9 @@ This is a library inquiry system implemented in Java, using JDBC for MySQL conne
 - Li Chun Lam 1155116313
 
 ## Compilation
-Put all folders and files on a CUHK CSE Linux Machine
-Navigate to the folder with the files
-Run:
-`javac Main.java`
+- Put all folders and files on a CUHK CSE Linux Machine
+- Navigate to the folder with the files
+- Run:`javac Main.java`
 
 ## Running the program
 ### Using Terminal

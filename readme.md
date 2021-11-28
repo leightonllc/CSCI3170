@@ -8,17 +8,18 @@ This is a library inquiry system implemented in Java, using JDBC for MySQL conne
 - Li Chun Lam 1155116313
 
 ## Compilation
-- Put all folders and files on a CUHK CSE Linux Machine
 - Navigate to the folder with the files
 - Run:`javac Main.java`
 
 ## Running the program
 ### Using Terminal
 !(CUHK CSE VPN connection is required to run the project.)
-- `ssh db039@linux10.cse.cuhk.edu.hk`
-- password: `qbmub4xs`
-- `cd CSCI3170-Project/`
+- Navigate to the folder with the files
 - Run: `java -cp .:mysql-connector-java-5.1.47.jar Main`
+### Using Visual Studio Code
+!(CUHK CSE VPN connection is required to run the project.)
+- Put the connector jar file under "Referenced Libraries" of "Java Projects" tab
+- Right click on Main.java and run
 
 ## Cleaning up the compiled files
 Run:

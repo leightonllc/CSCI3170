@@ -19,7 +19,7 @@ public class LibuserDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO libuser (libuid, name, age, address, ucid) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO libuser (libuid, name, age, address, ucid) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, libuid);
             stmt.setString(2, name);
             stmt.setInt(3, age);

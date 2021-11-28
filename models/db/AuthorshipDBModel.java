@@ -13,7 +13,7 @@ public class AuthorshipDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO authorship (aname, callnum) VALUES (?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO authorship (aname, callnum) VALUES (?, ?)");
             stmt.setString(1, aname);
             stmt.setString(2, callnum);
             stmt.execute();

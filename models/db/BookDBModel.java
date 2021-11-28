@@ -22,7 +22,7 @@ public class BookDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO book (callnum, title, publish, rating, tborrowed, bcid) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO book (callnum, title, publish, rating, tborrowed, bcid) VALUES (?, ?, ?, ?, ?, ?)");
             stmt.setString(1, callnum);
             stmt.setString(2, title);
             stmt.setDate(3, new Date(publish.getTimeInMillis()));

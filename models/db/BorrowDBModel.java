@@ -20,7 +20,7 @@ public class BorrowDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO borrow (libuid, callnum, copynum, checkout, ret) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO borrow (libuid, callnum, copynum, checkout, ret) VALUES (?, ?, ?, ?, ?)");
             stmt.setString(1, libuid);
             stmt.setString(2, callnum);
             stmt.setInt(3, copynum);

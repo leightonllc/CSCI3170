@@ -13,7 +13,7 @@ public class BookCategoryDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO bookcategory (bcid, bcname) VALUES (?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO bookcategory (bcid, bcname) VALUES (?, ?)");
             stmt.setInt(1, bcid);
             stmt.setString(2, bcname);
             stmt.execute();

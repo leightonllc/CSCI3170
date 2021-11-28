@@ -13,7 +13,7 @@ public class CopyDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO copy (callnum, copynum) VALUES (?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO copy (callnum, copynum) VALUES (?, ?)");
             stmt.setString(1, callnum);
             stmt.setInt(2, copynum);
             stmt.execute();

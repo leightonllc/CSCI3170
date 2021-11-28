@@ -15,7 +15,7 @@ public class UserCategoryDBModel {
 
     public void insertToDatabase(Connection conn) {
         try {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO usercategory (ucid, max, period) VALUES (?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT IGNORE INTO usercategory (ucid, max, period) VALUES (?, ?, ?)");
             stmt.setInt(1, ucid);
             stmt.setInt(2, max);
             stmt.setInt(3, period);

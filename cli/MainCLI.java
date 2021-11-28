@@ -22,7 +22,7 @@ public class MainCLI implements CLIInterface{
                 case 1: c = new AdminCLI(db, sc); break;
                 case 2: c = new LibUserCLI(db, sc); break;
                 case 3: c = new LibrarianCLI(db, sc); break;
-                case 5: return;
+                case 4: return;
                 default: System.out.println("[Error] Invalid operation, choose again.\n");
             }
 

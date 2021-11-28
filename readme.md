@@ -15,9 +15,9 @@ This is a library inquiry system implemented in Java, using JDBC for MySQL conne
 ## Running the program
 ### Using Terminal
 !(CUHK CSE VPN connection is required to run the project.)
-- ssh db039@linux10.cse.cuhk.edu.hk
-- password: qbmub4xs
-- cd CSCI3170-Project/
+- `ssh db039@linux10.cse.cuhk.edu.hk`
+- password: `qbmub4xs`
+- `cd CSCI3170-Project/`
 - Run: `java -cp .:mysql-connector-java-5.1.47.jar Main`
 
 ## Cleaning up the compiled files

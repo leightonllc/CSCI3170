@@ -36,7 +36,7 @@ public class MainCLI implements CLIInterface{
         System.out.println("1. Operations for administrator");
         System.out.println("2. Operations for library user");
         System.out.println("3. Operations for librarian");
-        System.out.println("5. Exit this program");
+        System.out.println("4. Exit this program");
         System.out.printf("Enter your choice: ");
     }
 }

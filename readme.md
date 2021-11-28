@@ -20,6 +20,8 @@ This is a library inquiry system implemented in Java, using JDBC for MySQL conne
 !(CUHK CSE VPN connection is required to run the project.)
 - Put the connector jar file under "Referenced Libraries" of "Java Projects" tab
 - Right click on Main.java and run
+### Caution
+Please delete the tables, re-create them and import sample data before trying the functions.
 
 ## Cleaning up the compiled files
 Run:

@@ -51,7 +51,7 @@ public class UserBookQueryRow {
 
         // available copies.
         PreparedStatement copyStmt = conn.prepareStatement("SELECT COUNT(*) FROM copy WHERE (callnum, copynum) NOT IN "
-            + "(SELECT callnum, copynum FROM borrow WHERE callnum = ? AND RET IS NULL) AND callnum = ?");
+            + "(SELECT callnum, copynum FROM borrow WHERE callnum = ? AND ret IS NULL) AND callnum = ?");
         copyStmt.setString(1, callnum);
         copyStmt.setString(2, callnum);
         ResultSet rs = copyStmt.executeQuery();

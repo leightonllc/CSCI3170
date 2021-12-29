@@ -28,3 +28,6 @@ Run:
 `find . -name "*.class" -type f -delete`
 
 Please refer to [this link](https://github.com/leightonllc/CSCI3170).
+
+## Final result
+38/39 (-1) rating by default is null. usre functions: test case 2, test case 3.
